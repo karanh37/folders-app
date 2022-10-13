@@ -1,8 +1,9 @@
 import React from 'react'
-import { Folder } from '../model/Folder';
+import { FileTypes, Folder } from '../model/Folder';
 import Directory from './Directory.component';
-import { Button, Grid } from '@mui/material';
+import { Breadcrumbs, Link, Button, Grid, Typography } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { BreadcrumbItem } from '../model/BreadcrumbItem';
 
 interface Props {
     items: Folder[]
@@ -12,25 +13,65 @@ const Root = (props: Props) => {
     const navigate = useNavigate()
     const location = useLocation()
 
+    const getBreadcrumbLinks = () => {
+        const fullPath = location.pathname.slice(1).split('/')
+        const arr = fullPath.map((obj, i) => {
+            return { name: obj, path: fullPath.slice(0, i + 1).join('/') }
+        })
+        return arr
+    }
+
     const handleClick = (item: Folder) => {
-        console.log(location)
-        const path = location.pathname.slice(1)
-        navigate(`${path}/${item.name}`)
+        if(item.type === FileTypes.Folder) {
+            const path = location.pathname.slice(1)
+            navigate(`${path}/${item.name}`)
+        }
+    }
+
+    const isLast = (index: Number) => {
+        return index === getBreadcrumbLinks().length - 1;
     }
 
     return (
-        <Grid container spacing={2}>
-            {
-                props.items.map((item, i) =>
-                <Grid onClick={()=>handleClick(item)} item md={2} sm={3} key={i}>
-                    <Directory {...item} />
-                </Grid>)
-            }
-            {props.items.length === 0 && <Grid item>
-                <div>
-                No item in this folder</div>
-                <Button variant="contained" onClick={() => navigate(-1)}>Go Back</Button></Grid>}
-        </Grid>
+        <>
+            <Breadcrumbs aria-label="breadcrumb" sx={{
+                m: 2
+            }}>
+                <Link underline="hover" color="inherit" onClick={() => navigate('')}>
+                    All
+                </Link>
+                {
+                    getBreadcrumbLinks().map((link: BreadcrumbItem, index: Number) => {
+                        if (isLast(index)) {
+                            return <Typography color="text.primary">{link.name}</Typography>
+                        } else {
+                            return <Link
+                                underline="hover"
+                                color="inherit"
+                                onClick={() => navigate(link.path)}
+                            >
+                                {link.name}
+                            </Link>
+                        }
+
+                    })
+                }
+
+                {/* { getBreadcrumbLinks().length == 0 && <Typography color="text.primary">Breadcrumbs</Typography> } */}
+            </Breadcrumbs>
+            <Grid container spacing={2}>
+                {
+                    props.items.map((item, i) =>
+                        <Grid onClick={() => handleClick(item)} item md={2} sm={3} key={i}>
+                            <Directory {...item} />
+                        </Grid>)
+                }
+                {props.items.length === 0 && <Grid item>
+                    <div>
+                        No item in this folder</div>
+                    <Button variant="contained" onClick={() => navigate(-1)}>Go Back</Button></Grid>}
+            </Grid>
+        </>
     )
 }
 
