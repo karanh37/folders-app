@@ -1,0 +1,37 @@
+{
+    "data" : [
+        {
+            "name": "folder1",
+            "type": "folder"
+        },
+        {
+            "name": "folder2",
+            "type": "folder"
+        },
+        {
+            "name": "folder3",
+            "type": "folder"
+        },
+        {
+            "name": "folder4",
+            "type": "folder"
+        },
+        {
+            "name": "folder5",
+            "type": "folder"
+        },
+        {
+            "name": "folder6",
+            "type": "folder"
+        },
+        {
+            "name": "folder7",
+            "type": "folder"
+        },
+        {
+            "name": "folder8",
+            "type": "folder"
+        }
+    ]
+}
+
