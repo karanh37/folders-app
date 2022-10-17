@@ -37,6 +37,7 @@ const Root = (props: Props) => {
   return (
     <>
       <Breadcrumbs
+        className="folder-app-breadcrumb"
         aria-label="breadcrumb"
         sx={{
           m: 2,
@@ -63,7 +64,7 @@ const Root = (props: Props) => {
       </Breadcrumbs>
       <Grid container spacing={2}>
         {props.items.map((item, i) => (
-          <Grid onClick={() => handleClick(item)} item md={2} sm={3} key={i}>
+          <Grid className="folder-card" onClick={() => handleClick(item)} item md={2} sm={3} key={i}>
             <Directory {...item} />
           </Grid>
         ))}

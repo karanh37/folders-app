@@ -21,6 +21,7 @@ const Dashboard = () => {
 
   return (
     <Box
+      id="folder-app-dashboard"
       component="main"
       sx={{
         flexGrow: 1,
