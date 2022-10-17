@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography } from "@mui/material";
 import React from "react";
-import { FileTypes, Folder } from "../model/Folder";
+import { FileTypes, Folder } from "../model/Folder.interface";
 import FolderIcon from "@mui/icons-material/Folder";
 import DescriptionIcon from "@mui/icons-material/Description";
 

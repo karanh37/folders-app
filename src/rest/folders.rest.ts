@@ -1,4 +1,4 @@
-import { Folder } from "../model/Folder";
+import { Folder } from "../model/Folder.interface";
 
 export const getChildrenByFolderName = async (folderName: any): Promise<Folder[]> => {
     let url = `/sandbox/data.json`

@@ -1,9 +1,9 @@
-import React from "react";
-import { FileTypes, Folder } from "../model/Folder";
+import React, { useMemo } from "react";
+import { FileTypes, Folder } from "../model/Folder.interface";
 import Directory from "./Directory.component";
 import { Breadcrumbs, Link, Button, Grid, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { BreadcrumbItem } from "../model/BreadcrumbItem";
+import { BreadcrumbItem } from "../model/BreadcrumbItem.interface";
 
 interface Props {
   items: Folder[];
@@ -20,6 +20,8 @@ const Root = (props: Props) => {
     });
     return arr;
   };
+
+  const memoBreadcrumbLinks = useMemo(() => getBreadcrumbLinks(), [location.pathname])
 
   const handleClick = (item: Folder) => {
     if (item.type === FileTypes.Folder) {
@@ -43,7 +45,7 @@ const Root = (props: Props) => {
         <Link underline="hover" color="inherit" onClick={() => navigate("")}>
           All
         </Link>
-        {getBreadcrumbLinks().map((link: BreadcrumbItem, index: Number) => {
+        {memoBreadcrumbLinks.map((link: BreadcrumbItem, index: Number) => {
           if (isLast(index)) {
             return <Typography color="text.primary">{link.name}</Typography>;
           } else {

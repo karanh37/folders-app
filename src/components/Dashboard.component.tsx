@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Folder } from "../model/Folder";
+import { Folder } from "../model/Folder.interface";
 import { getChildrenByFolderName } from "../rest/folders.rest";
 import { getFolderPathFromParams } from "../utils/urlPath";
 import Root from "./Root.component";
